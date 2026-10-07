@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>Mermaid Flowchart</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
 
-<script src="libs/chartjs/4.5.1/chart.umd.min.js" defer></script>
+<script src="./libs/chartjs/4.5.1/chart.umd.min.js" defer></script>
 <script type="importmap">
 {
   "imports": {
@@ -16,24 +16,12 @@
 }
 </script>
 
-<!-- Tempat Console Endap -->
+<!-- WADAH 1: Tempat Terminal/Console Endap -->
 <div id="cnt1"></div>
 
-<!-- Tempat Flowchart -->
-<pre id="diagram-target" class="mermaid" style="margin-top: 20px; background: transparent; border: none;"></pre>
-
-<script type="module">
-import { Console as CLI } from "endap"
-const consoles = CLI.create("40px");
-
-const cnt = document.getElementById("cnt1");
-cnt.append(consoles.el);
-
-consoles.ver();
-consoles.log("Console endap aktif. Memulai kompilasi diagram...");
-
-// KODE MERMAID DENGAN ID PADA SUBGRAPH AGAR TIDAK ERROR
-const rawMermaidCode = `flowchart TD
+<!-- WADAH 2: Tempat Flowchart Visual Ter-render -->
+<pre class="mermaid" style="margin-top: 20px; background: transparent; border: none;">
+flowchart TD
   subgraph SG1 [" "]
     direction TB
     o3b --> O1 --> O2 --> E
@@ -77,17 +65,24 @@ const rawMermaidCode = `flowchart TD
   o4a(("4")):::conn
   o4b(("4")):::conn
   
-  classDef conn fill:#484, stroke:#040, color:#fff`;
+  classDef conn fill:#484, stroke:#040, color:#fff
+</pre>
 
-const target = document.getElementById("diagram-target");
-target.textContent = rawMermaidCode;
+<script type="module">
+import { Console as CLI } from "endap"
+const consoles = CLI.create("40px");
+
+const cnt = document.getElementById("cnt1");
+cnt.append(consoles.el);
+
+consoles.ver();
+consoles.log("Console endap aktif. Memulai kompilasi diagram...");
 </script>
 
 <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.esm.min.mjs";
-
     mermaid.initialize({
-      startOnLoad: false,
+      startOnLoad: true,
       theme: "neutral",
       themeVariables: {
         fontSize: "20px",
@@ -95,13 +90,6 @@ target.textContent = rawMermaidCode;
         labelFontSize: "14px"
       }
     });
-    
-    // Memberi sedikit jeda agar teks Mermaid terisi sebelum dirender
-    setTimeout(async () => {
-      await mermaid.run({
-        querySelector: ".mermaid"
-      });
-    }, 100);
 </script>
 
 </body>
