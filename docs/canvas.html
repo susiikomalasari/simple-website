@@ -1,0 +1,96 @@
+  <!doctype html>
+  <html lang=en-us dir=ltr>
+  <head>
+    <link rel='stylesheet' href="/assets/css/style.css">
+  </head>
+  <body>
+  <!-- code begins -->
+
+
+  <script src="/libs/chartjs/4.5.1/chart.umd.min.js" defer></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "endap": "/libs/endap/0.0.4/endap.min.js"
+    }
+  }
+  </script>
+
+
+  <div id="cnt0">
+  </div>
+
+
+  <script type=module>
+  const cnt = document.getElementById("cnt0")
+  const me = 'Rahmansyah (20226008)';
+
+  import {Console as cli} from "endap";
+  import {RandNum as rn} from "endap";
+  import {Tensor1D as t1d} from "endap";
+
+  const lebar = 400;
+  const tinggi = 400;
+  const kanvas = document.createElement("canvas");
+  kanvas.width = lebar;
+  kanvas.height = tinggi;
+  kanvas.style.width = lebar + "px";
+  kanvas.style.height = tinggi + "px";
+  cnt.append(kanvas);
+
+
+  const consoles = cli.create("100px");
+  cnt.append(consoles.el);
+
+  const n=5;
+  const xmin=40;
+  const ymin=40;
+  const dx=80;
+  const dy=80;
+
+  const x = t1d.create(n*n);
+  const y = t1d.create(n*n);
+
+  let k = 0;
+  for (let i = 0; i<n; i++){
+    for (let j=0; j<n; j++){
+      x[k] = xmin + i * dx;
+      y[k] = ymin + j * dy;
+      k++;
+    }
+  }
+
+  const rmin = 2
+  const rmax = 4
+  const r = rn.randIntN(rmin,rmax,n*n);
+  for (let k = 0; k< n*n; k++){
+    r[k] = r[k] * 5;
+  }
+
+  const warna = ['red', 'yellow', 'green','blue','magenta','cyan','gray']
+  const cmin = 0;
+  const cmax = 6;
+  const c = rn.randIntN(cmin,cmax,n*n)
+
+  const buletan = kanvas.getContext("2d");
+  buletan.lineWidth = "2";
+
+  for(let k = 0; k < n*n; k++){
+    buletan.beginPath();
+    buletan.strokeStyle = warna[c[k]];
+    buletan.arc(x[k],y[k], r[k], 0, 2*Math.PI);
+    buletan.stroke();
+  }
+
+  consoles.log("x = ", ""); consoles.log(x);
+  consoles.log("y = ",""); consoles.log(y);
+  consoles.log("r = ", ""); consoles.log(r);
+  consoles.log('urutan warna =',''); consoles.log(warna);
+  consoles.log('urutan kode warna =', ''); consoles.log(c)
+  consoles.log(me);
+  </script>
+
+
+  <!-- code ends -->
+  </body>
+  </html>
