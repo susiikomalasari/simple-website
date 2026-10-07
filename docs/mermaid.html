@@ -1,11 +1,8 @@
 <!doctype html>
-<html lang=en-us dir=ltr>
+<html lang="en-us" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <link rel='stylesheet' href="assets/css/style.css">
-  
-  <!-- 1. MEMUAT LIBRARY COMPILER MERMAID DARI CDN JSDELIVR -->
-  <script src="https://jsdelivr.net"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <!-- code begins -->
@@ -14,7 +11,7 @@
 <script type="importmap">
 {
   "imports": {
-    "endap": "/libs/endap/0.0.4/endap.min.js"
+    "endap": "libs/endap/0.0.4/endap.min.js"
   }
 }
 </script>
@@ -22,10 +19,10 @@
 <!-- WADAH 1: Tempat Terminal/Console Endap -->
 <div id="cnt1"></div>
 
-<!-- WADAH 2: Tempat Flowchart Visual Ter-render (Wajib menggunakan tag <pre>) -->
+<!-- WADAH 2: Tempat Flowchart Visual Ter-render -->
 <pre id="diagram-target" class="mermaid" style="margin-top: 20px; background: transparent; border: none;"></pre>
 
-<script type=module>
+<script type="module">
 import { Console as CLI } from "endap"
 const consoles = CLI.create("40px");
 
@@ -35,8 +32,8 @@ cnt.append(consoles.el);
 consoles.ver();
 consoles.log("Console endap aktif. Memulai kompilasi diagram...");
 
-// 2. KODE MERMAID DENGAN STRUKTUR PINGGIRAN ENTER YANG BENAR
-const rawMermaidCode = `flowchart
+// 2. KODE MERMAID DENGAN PERBAIKAN ARAH 'TD'
+const rawMermaidCode = `flowchart TD
   subgraph " "
     direction TB
     o3b --> O1 --> O2 --> E
@@ -85,11 +82,9 @@ const rawMermaidCode = `flowchart
 // 3. INJEKSI TEKS MENTAH KE TARGET DENGAN TETAP MENJAGA BEKAS ENTER
 const target = document.getElementById("diagram-target");
 target.textContent = rawMermaidCode;
-
-
 </script>
 
-<script type=module>
+<script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.esm.min.mjs";
 
     mermaid.initialize({
@@ -107,7 +102,7 @@ target.textContent = rawMermaidCode;
         querySelector: ".mermaid"
       });
     });
-  </script>
+</script>
 
 <!-- code ends -->
 </body>
