@@ -2,24 +2,24 @@
 <html lang="en-us" dir="ltr">
 <head>
   <meta charset="utf-8">
+  <title>Mermaid Flowchart</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<!-- code begins -->
 
 <script src="libs/chartjs/4.5.1/chart.umd.min.js" defer></script>
 <script type="importmap">
 {
   "imports": {
-    "endap": "libs/endap/0.0.4/endap.min.js"
+    "endap": "./libs/endap/0.0.4/endap.min.js"
   }
 }
 </script>
 
-<!-- WADAH 1: Tempat Terminal/Console Endap -->
+<!-- Tempat Console Endap -->
 <div id="cnt1"></div>
 
-<!-- WADAH 2: Tempat Flowchart Visual Ter-render -->
+<!-- Tempat Flowchart -->
 <pre id="diagram-target" class="mermaid" style="margin-top: 20px; background: transparent; border: none;"></pre>
 
 <script type="module">
@@ -32,27 +32,27 @@ cnt.append(consoles.el);
 consoles.ver();
 consoles.log("Console endap aktif. Memulai kompilasi diagram...");
 
-// 2. KODE MERMAID DENGAN PERBAIKAN ARAH 'TD'
+// KODE MERMAID DENGAN ID PADA SUBGRAPH AGAR TIDAK ERROR
 const rawMermaidCode = `flowchart TD
-  subgraph " "
+  subgraph SG1 [" "]
     direction TB
     o3b --> O1 --> O2 --> E
   end
   
-  subgraph " "
+  subgraph SG2 [" "]
     direction TB
     o2b --> C1
     C1 --"Y"--> P3 --> o4a
     C1 --"N"---> o3a
   end
   
-  subgraph " "
+  subgraph SG3 [" "]
     direction TB
     o1b --> P1 --> P2 --> o2a
     o4b ---> P2
   end
   
-  subgraph " "
+  subgraph SG4 [" "]
     direction TB
     B --> I1 --> I2 --> o1a
   end
@@ -79,7 +79,6 @@ const rawMermaidCode = `flowchart TD
   
   classDef conn fill:#484, stroke:#040, color:#fff`;
 
-// 3. INJEKSI TEKS MENTAH KE TARGET DENGAN TETAP MENJAGA BEKAS ENTER
 const target = document.getElementById("diagram-target");
 target.textContent = rawMermaidCode;
 </script>
@@ -97,13 +96,13 @@ target.textContent = rawMermaidCode;
       }
     });
     
-    document.addEventListener("DOMContentLoaded", async () => {
+    // Memberi sedikit jeda agar teks Mermaid terisi sebelum dirender
+    setTimeout(async () => {
       await mermaid.run({
         querySelector: ".mermaid"
       });
-    });
+    }, 100);
 </script>
 
-<!-- code ends -->
 </body>
 </html>
